@@ -385,30 +385,51 @@ function printResults() {
 // Gestion des événements clavier
 document.addEventListener('DOMContentLoaded', function() {
     const inputs = document.querySelectorAll('input');
-    
+
     inputs.forEach(input => {
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 calculate();
             }
         });
     });
-    
-    // Auto-calcul quand tous les champs obligatoires sont remplis
+
+    // Auto-calcul avec debounce pour optimiser les performances
     const weightInput = document.getElementById('weight');
     const repsInput = document.getElementById('reps');
-    
+
+    let debounceTimer;
     function autoCalculate() {
         const weight = parseFloat(weightInput.value);
         const reps = parseInt(repsInput.value);
-        
+
+        clearTimeout(debounceTimer);
+
         if (weight > 0 && reps > 0) {
-            setTimeout(calculate, 300); // Délai optimisé pour une meilleure réactivité
+            debounceTimer = setTimeout(calculate, 250); // Délai optimisé avec debounce
         }
     }
-    
+
     weightInput.addEventListener('input', autoCalculate);
     repsInput.addEventListener('input', autoCalculate);
+
+    // Ajouter des animations au scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.formula-card, .info-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+    });
 });
 
 // Validation des entrées
