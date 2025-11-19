@@ -172,7 +172,7 @@ function displayResults(results, rpeResult, average, weight, reps, rpe, exercise
     }
     
     // Ajout de toutes les formules
-    html += `<tr><td colspan="4" style="padding: 8px; background: #f8f9fa; font-weight: bold; color: #666;">📊 Toutes les formules de calcul :</td></tr>`;
+    html += `<tr><td colspan="4" style="padding: 8px; background: #f8f9fa; font-weight: 600; color: #64748b;">Toutes les formules de calcul</td></tr>`;
     
     for (const [key, result] of Object.entries(results)) {
         const formulaInfo = formulaNames[key];
@@ -229,7 +229,7 @@ function calculateStandardDeviation(values) {
 function generateRecommendations(oneRM, reps, rpe) {
     let html = `
         <div class="recommendations">
-            <h4>🎯 Recommandations d'entraînement</h4>
+            <h4>Recommandations d'entraînement</h4>
             <ul>
     `;
     
@@ -252,10 +252,10 @@ function generateRecommendations(oneRM, reps, rpe) {
 // Fonction pour générer le tableau des pourcentages
 function generatePercentageTable(oneRM) {
     const percentages = [95, 90, 85, 80, 75, 70, 65, 60, 55, 50];
-    
+
     let html = `
         <div class="percentage-table">
-            <h3>💪 Tableau des pourcentages d'entraînement</h3>
+            <h3>Tableau des pourcentages d'entraînement</h3>
             <div class="percentage-grid">
     `;
     
