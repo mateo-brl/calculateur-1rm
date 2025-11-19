@@ -71,48 +71,66 @@ function calculate() {
     const reps = parseInt(document.getElementById('reps').value);
     const rpe = parseFloat(document.getElementById('rpe').value);
     const exercise = document.getElementById('exercise').value;
-    
+
     if (!weight || !reps || weight <= 0 || reps <= 0) {
         alert('Veuillez remplir tous les champs obligatoires avec des valeurs positives.');
         return;
     }
-    
+
     if (reps > 20) {
         alert('Les formules ne sont pas fiables au-delà de 20 répétitions.');
         return;
     }
-    
-    // Calcul avec toutes les formules
-    const results = {};
-    const validResults = [];
-    
-    for (const [key, formula] of Object.entries(formulas)) {
-        try {
-            const result = formula(weight, reps);
-            if (result > 0 && isFinite(result)) {
-                results[key] = result;
-                validResults.push(result);
+
+    // Afficher le loader
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.classList.add('active');
+
+    // Simuler un délai pour l'effet visuel (enlever en production si calcul instantané)
+    setTimeout(() => {
+        performCalculation(weight, reps, rpe, exercise);
+        loadingOverlay.classList.remove('active');
+    }, 300);
+}
+
+// Fonction de calcul séparée
+function performCalculation(weight, reps, rpe, exercise) {
+    try {
+        // Calcul avec toutes les formules
+        const results = {};
+        const validResults = [];
+
+        for (const [key, formula] of Object.entries(formulas)) {
+            try {
+                const result = formula(weight, reps);
+                if (result > 0 && isFinite(result)) {
+                    results[key] = result;
+                    validResults.push(result);
+                }
+            } catch (error) {
+                console.error(`Erreur avec la formule ${key}:`, error);
             }
-        } catch (error) {
-            console.error(`Erreur avec la formule ${key}:`, error);
         }
+
+        // Calcul RPE si disponible
+        let rpeResult = null;
+        if (rpe) {
+            rpeResult = calculateRPE(weight, reps, rpe);
+        }
+
+        // Calcul de la moyenne
+        const average = validResults.length > 0 ?
+            validResults.reduce((sum, val) => sum + val, 0) / validResults.length : 0;
+
+        // Affichage des résultats
+        displayResults(results, rpeResult, average, weight, reps, rpe, exercise);
+
+        // Génération du tableau des pourcentages
+        generatePercentageTable(rpeResult || average);
+    } catch (error) {
+        console.error('Erreur lors du calcul:', error);
+        alert('Une erreur s\'est produite lors du calcul.');
     }
-    
-    // Calcul RPE si disponible
-    let rpeResult = null;
-    if (rpe) {
-        rpeResult = calculateRPE(weight, reps, rpe);
-    }
-    
-    // Calcul de la moyenne
-    const average = validResults.length > 0 ? 
-        validResults.reduce((sum, val) => sum + val, 0) / validResults.length : 0;
-    
-    // Affichage des résultats
-    displayResults(results, rpeResult, average, weight, reps, rpe, exercise);
-    
-    // Génération du tableau des pourcentages
-    generatePercentageTable(rpeResult || average);
 }
 
 // Fonction d'affichage des résultats
