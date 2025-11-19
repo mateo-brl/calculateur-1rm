@@ -13,23 +13,17 @@
 <body>
     <div class="container">
         <header class="main-header">
-            <h1>
-                <span class="icon">💪</span>
-                Calculateur 1RM
-                <span class="subtitle">Estimation de votre force maximale</span>
-            </h1>
+            <h1>Calculateur 1RM</h1>
+            <p class="subtitle">Estimation précise de votre force maximale</p>
         </header>
 
         <div class="calculator-section">
             <div class="form-container">
-                <h2>📊 Calculateur</h2>
+                <h2>Calculateur</h2>
                 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="exercise">
-                            <span class="label-icon">🏋️</span>
-                            Exercice
-                        </label>
+                        <label for="exercise">Exercice</label>
                         <select id="exercise" class="form-control">
                             <option value="squat">Squat</option>
                             <option value="bench">Développé couché</option>
@@ -41,27 +35,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="weight">
-                            <span class="label-icon">⚖️</span>
-                            Poids soulevé (kg)
-                        </label>
+                        <label for="weight">Poids soulevé (kg)</label>
                         <input type="number" id="weight" class="form-control" placeholder="ex: 100" step="0.5" min="0" max="1000">
                     </div>
 
                     <div class="form-group">
-                        <label for="reps">
-                            <span class="label-icon">🔢</span>
-                            Répétitions
-                        </label>
+                        <label for="reps">Répétitions</label>
                         <input type="number" id="reps" class="form-control" placeholder="ex: 5" min="1" max="20">
                     </div>
 
                     <div class="form-group">
                         <label for="rpe">
-                            <span class="label-icon">🎯</span>
                             RPE (optionnel)
                             <span class="tooltip">
-                                <span class="tooltip-icon">ℹ️</span>
+                                <span class="tooltip-icon">?</span>
                                 <div class="tooltip-content">
                                     <strong>RPE (Rate of Perceived Exertion)</strong><br>
                                     1-3: Très facile<br>
@@ -77,11 +64,9 @@
 
                 <div class="button-group">
                     <button onclick="calculate()" class="btn btn-primary">
-                        <span class="btn-icon">🧮</span>
                         Calculer le 1RM
                     </button>
                     <button onclick="clearInputs()" class="btn btn-secondary">
-                        <span class="btn-icon">🗑️</span>
                         Effacer
                     </button>
                 </div>
@@ -90,7 +75,6 @@
             <div class="results-container">
                 <div id="results" class="results-content">
                     <div class="empty-state">
-                        <div class="empty-icon">📈</div>
                         <h3>Résultats</h3>
                         <p>Remplissez les champs et cliquez sur "Calculer" pour voir vos résultats</p>
                     </div>
@@ -100,7 +84,7 @@
 
         <!-- Section formules avec design amélioré -->
         <div class="formulas-section">
-            <h2>📚 Formules de calcul</h2>
+            <h2>Formules de calcul</h2>
             
             <div class="formula-grid">
                 <div class="formula-card featured">
@@ -195,7 +179,6 @@
             <div class="info-section">
                 <div class="info-grid">
                     <div class="info-card">
-                        <div class="info-icon">🎯</div>
                         <h4>Choisir la bonne formule</h4>
                         <ul>
                             <li><strong>1-5 reps:</strong> Brzycki ou Lander</li>
@@ -204,9 +187,8 @@
                             <li><strong>RPE disponible:</strong> Calcul RPE (le plus précis)</li>
                         </ul>
                     </div>
-                    
+
                     <div class="info-card">
-                        <div class="info-icon">⚠️</div>
                         <h4>Limites importantes</h4>
                         <ul>
                             <li>Estimations théoriques uniquement</li>
@@ -215,9 +197,8 @@
                             <li>Testez progressivement vos vrais max</li>
                         </ul>
                     </div>
-                    
+
                     <div class="info-card">
-                        <div class="info-icon">💡</div>
                         <h4>Conseils d'utilisation</h4>
                         <ul>
                             <li>Utilisez le RPE quand possible</li>
@@ -231,7 +212,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 Calculateur 1RM - Outil d'estimation pour l'entraînement en force - Made by AI</p>
+            <p>&copy; 2025 Calculateur 1RM - Outil d'estimation pour l'entraînement en force</p>
         </footer>
     </div>
 
