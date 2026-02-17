@@ -190,7 +190,7 @@ function displayResults(results, rpeResult, average, weight, reps, rpe, exercise
     }
     
     // Ajout de toutes les formules
-    html += `<tr><td colspan="4" style="padding: 8px; background: #f8f9fa; font-weight: 600; color: #64748b;">Toutes les formules de calcul</td></tr>`;
+    html += `<tr><td colspan="4" class="formulas-separator">Toutes les formules de calcul</td></tr>`;
     
     for (const [key, result] of Object.entries(results)) {
         const formulaInfo = formulaNames[key];
@@ -302,8 +302,13 @@ function clearInputs() {
     document.getElementById('rpe').value = '';
     document.getElementById('exercise').value = 'squat';
     document.getElementById('results').innerHTML = `
-        <h2>Résultats</h2>
-        <p>Remplissez les champs et cliquez sur "Calculer"</p>
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Résultats</h3>
+            <p>Remplissez les champs et cliquez sur "Calculer" pour voir vos résultats</p>
+        </div>
     `;
 }
 
@@ -476,3 +481,39 @@ window.addEventListener('error', function(e) {
     console.error('Erreur JavaScript:', e.error);
     alert('Une erreur s\'est produite. Veuillez rafraîchir la page.');
 });
+
+// Gestion du thème clair/sombre
+(function() {
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    function getStoredTheme() {
+        return localStorage.getItem('theme');
+    }
+
+    function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    // Initialisation : préférence stockée > préférence système > dark par défaut
+    const initialTheme = getStoredTheme() || getSystemTheme();
+    applyTheme(initialTheme);
+
+    // Toggle au clic
+    toggle.addEventListener('click', function() {
+        const current = root.getAttribute('data-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Écouter les changements de préférence système
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+        if (!getStoredTheme()) {
+            applyTheme(e.matches ? 'light' : 'dark');
+        }
+    });
+})();

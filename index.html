@@ -6,105 +6,178 @@
     <meta name="description" content="Calculateur de 1RM en ligne gratuit. Estimez votre force maximale avec plusieurs formules scientifiques (Brzycki, Epley, Lander). Idéal pour la musculation et l'entraînement en force.">
     <meta name="keywords" content="calculateur 1RM, force maximale, musculation, Brzycki, Epley, RPE, entraînement">
     <meta name="author" content="Calculateur 1RM">
-    <title>Calculateur 1RM - Estimation de la Force Maximale</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Calculateur 1RM — Force Maximale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Prevent flash of wrong theme
+        (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t)})();
+    </script>
 </head>
 <body>
-    <div class="container">
-        <header class="main-header">
-            <h1>Calculateur 1RM</h1>
-            <p class="subtitle">Estimation précise de votre force maximale</p>
-        </header>
 
-        <div class="calculator-section">
-            <div class="form-container">
-                <h2>Calculateur</h2>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="exercise">Exercice</label>
-                        <select id="exercise" class="form-control">
-                            <option value="squat">Squat</option>
-                            <option value="bench">Développé couché</option>
-                            <option value="deadlift">Soulevé de terre</option>
-                            <option value="overhead">Développé militaire</option>
-                            <option value="row">Rowing</option>
-                            <option value="other">Autre</option>
-                        </select>
-                    </div>
+    <!-- Grain overlay -->
+    <div class="grain"></div>
 
-                    <div class="form-group">
-                        <label for="weight">Poids soulevé (kg)</label>
-                        <input type="number" id="weight" class="form-control" placeholder="ex: 100" step="0.5" min="0" max="1000">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="reps">Répétitions</label>
-                        <input type="number" id="reps" class="form-control" placeholder="ex: 5" min="1" max="20">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rpe">
-                            RPE (optionnel)
-                            <span class="tooltip">
-                                <span class="tooltip-icon">?</span>
-                                <div class="tooltip-content">
-                                    <strong>RPE (Rate of Perceived Exertion)</strong><br>
-                                    1-3: Très facile<br>
-                                    4-6: Facile à modéré<br>
-                                    7-8: Difficile<br>
-                                    9-10: Très difficile à maximum
-                                </div>
-                            </span>
-                        </label>
-                        <input type="number" id="rpe" class="form-control" placeholder="ex: 8" step="0.5" min="1" max="10">
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button onclick="calculate()" class="btn btn-primary">
-                        Calculer le 1RM
-                    </button>
-                    <button onclick="clearInputs()" class="btn btn-secondary">
-                        Effacer
-                    </button>
-                </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">1RM</a>
+            <div class="nav-links">
+                <a href="#calculator" class="nav-link">Calculateur</a>
+                <a href="#formulas" class="nav-link">Formules</a>
+                <a href="#guide" class="nav-link">Guide</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-
-            <div class="results-container" style="position: relative;">
-                <div id="results" class="results-content">
-                    <div class="empty-state">
-                        <h3>Résultats</h3>
-                        <p>Remplissez les champs et cliquez sur "Calculer" pour voir vos résultats</p>
-                    </div>
-                </div>
-                <div id="loadingOverlay" class="loading-overlay">
-                    <div class="loader"></div>
-                    <p>Calcul en cours...</p>
-                </div>
-            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                <svg class="theme-icon theme-icon--dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg class="theme-icon theme-icon--light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
         </div>
+    </nav>
 
-        <!-- Section formules avec design amélioré -->
-        <div class="formulas-section">
-            <h2>Formules de calcul</h2>
-            
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-label">
+                    <span class="hero-label-line"></span>
+                    <span class="hero-label-text">Estimation de force maximale</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="hero-title-line">Calculateur</span>
+                    <span class="hero-title-line hero-title-outline">1RM</span>
+                </h1>
+                <p class="hero-description">
+                    Outil scientifique d'estimation de votre charge maximale sur une
+                    répétition, basé sur 7 formules validées par la recherche.
+                </p>
+                <div class="hero-cta">
+                    <a href="#calculator" class="btn-cta">Commencer le calcul</a>
+                    <a href="#formulas" class="btn-cta-ghost">Voir les formules</a>
+                </div>
+            </div>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <span class="hero-meta-number">07</span>
+                    <span class="hero-meta-label">Formules</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-number">RPE</span>
+                    <span class="hero-meta-label">Supporté</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-number">100%</span>
+                    <span class="hero-meta-label">Gratuit</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="section">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Calculateur</h2>
+            </div>
+
+            <div class="calculator-layout">
+                <div class="calc-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="exercise">Exercice</label>
+                            <div class="select-wrapper">
+                                <select id="exercise" class="form-control">
+                                    <option value="squat">Squat</option>
+                                    <option value="bench">Développé couché</option>
+                                    <option value="deadlift">Soulevé de terre</option>
+                                    <option value="overhead">Développé militaire</option>
+                                    <option value="row">Rowing</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Poids soulevé <span class="label-unit">(kg)</span></label>
+                            <input type="number" id="weight" class="form-control" placeholder="100" step="0.5" min="0" max="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reps">Répétitions</label>
+                            <input type="number" id="reps" class="form-control" placeholder="5" min="1" max="20">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rpe">
+                                RPE
+                                <span class="label-optional">optionnel</span>
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <div class="tooltip-content">
+                                        <strong>RPE (Rate of Perceived Exertion)</strong><br>
+                                        1-3: Très facile<br>
+                                        4-6: Facile à modéré<br>
+                                        7-8: Difficile<br>
+                                        9-10: Très difficile à maximum
+                                    </div>
+                                </span>
+                            </label>
+                            <input type="number" id="rpe" class="form-control" placeholder="8" step="0.5" min="1" max="10">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button onclick="calculate()" class="btn btn-primary">
+                            <span>Calculer</span>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button onclick="clearInputs()" class="btn btn-secondary">Effacer</button>
+                    </div>
+                </div>
+
+                <div class="calc-results" style="position: relative;">
+                    <div id="results" class="results-content">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <h3>Résultats</h3>
+                            <p>Remplissez les champs et cliquez sur "Calculer" pour voir vos résultats</p>
+                        </div>
+                    </div>
+                    <div id="loadingOverlay" class="loading-overlay">
+                        <div class="loader"></div>
+                        <p>Calcul en cours...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Formulas Section -->
+        <section id="formulas" class="section">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Formules de calcul</h2>
+            </div>
+
             <div class="formula-grid">
                 <div class="formula-card featured">
                     <div class="formula-header">
-                        <h3>Formule de Brzycki</h3>
+                        <div class="formula-name-group">
+                            <h3>Brzycki</h3>
+                            <span class="formula-year">1993</span>
+                        </div>
                         <span class="formula-badge recommended">Recommandée</span>
                     </div>
-                    <div class="formula-math">1RM = Poids ÷ (1.0278 - 0.0278 × Répétitions)</div>
+                    <div class="formula-math">1RM = Poids ÷ (1.0278 - 0.0278 × Reps)</div>
                     <div class="formula-details">
                         <div class="detail-item">
-                            <span class="detail-label">Créée en</span>
-                            <span class="detail-value">1993</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Idéale pour</span>
-                            <span class="detail-value">2-10 répétitions</span>
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">2 — 10 reps</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Précision</span>
@@ -115,18 +188,17 @@
 
                 <div class="formula-card">
                     <div class="formula-header">
-                        <h3>Formule d'Epley</h3>
+                        <div class="formula-name-group">
+                            <h3>Epley</h3>
+                            <span class="formula-year">1985</span>
+                        </div>
                         <span class="formula-badge popular">Populaire</span>
                     </div>
-                    <div class="formula-math">1RM = Poids × (1 + Répétitions ÷ 30)</div>
+                    <div class="formula-math">1RM = Poids × (1 + Reps ÷ 30)</div>
                     <div class="formula-details">
                         <div class="detail-item">
-                            <span class="detail-label">Créée en</span>
-                            <span class="detail-value">1985</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Idéale pour</span>
-                            <span class="detail-value">1-8 répétitions</span>
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">1 — 8 reps</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Précision</span>
@@ -137,18 +209,17 @@
 
                 <div class="formula-card">
                     <div class="formula-header">
-                        <h3>Formule de Lander</h3>
+                        <div class="formula-name-group">
+                            <h3>Lander</h3>
+                            <span class="formula-year">1985</span>
+                        </div>
                         <span class="formula-badge">Classique</span>
                     </div>
-                    <div class="formula-math">1RM = Poids ÷ (1.013 - 0.0267123 × Répétitions)</div>
+                    <div class="formula-math">1RM = Poids ÷ (1.013 - 0.0267 × Reps)</div>
                     <div class="formula-details">
                         <div class="detail-item">
-                            <span class="detail-label">Créée en</span>
-                            <span class="detail-value">1985</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Idéale pour</span>
-                            <span class="detail-value">2-10 répétitions</span>
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">2 — 10 reps</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Précision</span>
@@ -159,18 +230,17 @@
 
                 <div class="formula-card">
                     <div class="formula-header">
-                        <h3>Formule de Lombardi</h3>
+                        <div class="formula-name-group">
+                            <h3>Lombardi</h3>
+                            <span class="formula-year">1989</span>
+                        </div>
                         <span class="formula-badge">Versatile</span>
                     </div>
-                    <div class="formula-math">1RM = Poids × Répétitions^0.10</div>
+                    <div class="formula-math">1RM = Poids × Reps^0.10</div>
                     <div class="formula-details">
                         <div class="detail-item">
-                            <span class="detail-label">Créée en</span>
-                            <span class="detail-value">1989</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Idéale pour</span>
-                            <span class="detail-value">1-15 répétitions</span>
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">1 — 15 reps</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-label">Précision</span>
@@ -179,46 +249,68 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="info-section">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4>Choisir la bonne formule</h4>
-                        <ul>
-                            <li><strong>1-5 reps:</strong> Brzycki ou Lander</li>
-                            <li><strong>6-10 reps:</strong> Epley ou Lombardi</li>
-                            <li><strong>11-15 reps:</strong> Mayhew</li>
-                            <li><strong>RPE disponible:</strong> Calcul RPE (le plus précis)</li>
-                        </ul>
-                    </div>
+        <div class="divider"></div>
 
-                    <div class="info-card">
-                        <h4>Limites importantes</h4>
-                        <ul>
-                            <li>Estimations théoriques uniquement</li>
-                            <li>Précision réduite au-delà de 15 reps</li>
-                            <li>Varie selon l'expérience de l'athlète</li>
-                            <li>Testez progressivement vos vrais max</li>
-                        </ul>
-                    </div>
+        <!-- Guide Section -->
+        <section id="guide" class="section">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Guide</h2>
+            </div>
 
-                    <div class="info-card">
-                        <h4>Conseils d'utilisation</h4>
-                        <ul>
-                            <li>Utilisez le RPE quand possible</li>
-                            <li>Comparez plusieurs formules</li>
-                            <li>Considérez la fatigue et la technique</li>
-                            <li>Progressez par petites étapes</li>
-                        </ul>
-                    </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="info-card-number">A</span>
+                    <h4>Choisir la bonne formule</h4>
+                    <ul>
+                        <li><strong>1-5 reps:</strong> Brzycki ou Lander</li>
+                        <li><strong>6-10 reps:</strong> Epley ou Lombardi</li>
+                        <li><strong>11-15 reps:</strong> Mayhew</li>
+                        <li><strong>RPE disponible:</strong> Calcul RPE (le plus précis)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <span class="info-card-number">B</span>
+                    <h4>Limites importantes</h4>
+                    <ul>
+                        <li>Estimations théoriques uniquement</li>
+                        <li>Précision réduite au-delà de 15 reps</li>
+                        <li>Varie selon l'expérience de l'athlète</li>
+                        <li>Testez progressivement vos vrais max</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <span class="info-card-number">C</span>
+                    <h4>Conseils d'utilisation</h4>
+                    <ul>
+                        <li>Utilisez le RPE quand possible</li>
+                        <li>Comparez plusieurs formules</li>
+                        <li>Considérez la fatigue et la technique</li>
+                        <li>Progressez par petites étapes</li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <footer>
-            <p>&copy; 2025 Calculateur 1RM - Outil d'estimation pour l'entraînement en force</p>
+        <div class="divider"></div>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span class="footer-logo">1RM</span>
+                    <p class="footer-tagline">Outil d'estimation pour l'entraînement en force</p>
+                </div>
+                <div class="footer-right">
+                    <p class="footer-copy">&copy; 2025 Calculateur 1RM</p>
+                </div>
+            </div>
         </footer>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
