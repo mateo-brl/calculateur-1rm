@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculateur de 1RM gratuit. Estimez votre force maximale avec 7 formules scientifiques (Brzycki, Epley, Lander…) et le calcul par RPE.">
-    <meta name="keywords" content="calculateur 1RM, force maximale, powerlifting, musculation, Brzycki, Epley, RPE">
+    <meta name="description" content="Calculateur de 1RM gratuit, optimisé powerlifting. 4 formules validées (Epley, Wathen, Mayhew, Brzycki), pondération par exercice et calcul RPE prioritaire.">
+    <meta name="keywords" content="calculateur 1RM, force maximale, powerlifting, musculation, Epley, Wathen, Mayhew, Brzycki, RPE">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="color-scheme" content="dark light">
     <title>Calculateur 1RM — Force Maximale</title>
@@ -54,7 +54,7 @@
                 Calculateur <strong>1RM</strong>
             </h1>
 
-            <p class="hero-desc">Estimez votre charge maximale sur une répétition à partir d'une série sous-maximale. 7 formules validées par la recherche, plus le calcul par RPE pour une précision accrue.</p>
+            <p class="hero-desc">Estimez votre charge maximale sur une répétition à partir d'une série sous-maximale. 4 formules validées, pondération par exercice (squat / bench / DL) et calcul RPE prioritaire.</p>
 
             <div class="hero-cta">
                 <a href="#calculator" class="btn-cta">
@@ -67,12 +67,12 @@
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="hero-stat-num">07</span>
-                    <span class="hero-stat-label">Formules scientifiques</span>
+                    <span class="hero-stat-num">04</span>
+                    <span class="hero-stat-label">Formules essentielles</span>
                 </div>
                 <div class="hero-stat">
                     <span class="hero-stat-num">RPE</span>
-                    <span class="hero-stat-label">Calcul par effort ressenti</span>
+                    <span class="hero-stat-label">Calcul prioritaire</span>
                 </div>
                 <div class="hero-stat">
                     <span class="hero-stat-num">100%</span>
@@ -178,47 +178,68 @@
                 <span class="section-number">02</span>
                 <h2 class="section-title">Formules de calcul</h2>
             </div>
-            <p class="section-sub">Chaque formule a sa zone de précision. Sur une série de 3 à 8 reps, elles donnent toutes des résultats très cohérents.</p>
+            <p class="section-sub">Quatre formules essentielles, choisies pour le powerlifting. Le résultat est une moyenne pondérée selon l'exercice — Mayhew dominante en bench, Epley/Wathen en squat et DL. Le RPE prime quand il est fourni.</p>
 
             <div class="formula-grid">
                 <div class="formula-card featured">
                     <div class="formula-header">
                         <div class="formula-name-group">
-                            <h3>Brzycki</h3>
-                            <span class="formula-year">1993</span>
-                        </div>
-                        <span class="formula-badge recommended">Recommandée</span>
-                    </div>
-                    <div class="formula-math">1RM = Poids ÷ (1.0278 − 0.0278 × Reps)</div>
-                    <div class="formula-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Plage idéale</span>
-                            <span class="detail-value">2 — 10 reps</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Précision</span>
-                            <span class="detail-value">Excellente</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="formula-card">
-                    <div class="formula-header">
-                        <div class="formula-name-group">
                             <h3>Epley</h3>
                             <span class="formula-year">1985</span>
                         </div>
-                        <span class="formula-badge popular">Populaire</span>
+                        <span class="formula-badge recommended">Squat · DL</span>
                     </div>
                     <div class="formula-math">1RM = Poids × (1 + Reps ÷ 30)</div>
                     <div class="formula-details">
                         <div class="detail-item">
                             <span class="detail-label">Plage idéale</span>
-                            <span class="detail-value">1 — 8 reps</span>
+                            <span class="detail-value">1 — 10 reps</span>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">Précision</span>
-                            <span class="detail-value">Très bonne</span>
+                            <span class="detail-label">Note</span>
+                            <span class="detail-value">Référence universelle</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card featured">
+                    <div class="formula-header">
+                        <div class="formula-name-group">
+                            <h3>Wathen</h3>
+                            <span class="formula-year">1994</span>
+                        </div>
+                        <span class="formula-badge recommended">Squat · Bench · DL</span>
+                    </div>
+                    <div class="formula-math">1RM = Poids × 100 ÷ (48.8 + 53.8 × e<sup>−0.075 × Reps</sup>)</div>
+                    <div class="formula-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">1 — 10 reps</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Note</span>
+                            <span class="detail-value">Précise sur les forts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card featured">
+                    <div class="formula-header">
+                        <div class="formula-name-group">
+                            <h3>Mayhew</h3>
+                            <span class="formula-year">1992</span>
+                        </div>
+                        <span class="formula-badge recommended">Bench</span>
+                    </div>
+                    <div class="formula-math">1RM = Poids × 100 ÷ (52.2 + 41.9 × e<sup>−0.055 × Reps</sup>)</div>
+                    <div class="formula-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Plage idéale</span>
+                            <span class="detail-value">3 — 10 reps</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Note</span>
+                            <span class="detail-value">Validée bench r=0.98</span>
                         </div>
                     </div>
                 </div>
@@ -226,41 +247,20 @@
                 <div class="formula-card">
                     <div class="formula-header">
                         <div class="formula-name-group">
-                            <h3>Lander</h3>
-                            <span class="formula-year">1985</span>
+                            <h3>Brzycki</h3>
+                            <span class="formula-year">1993</span>
                         </div>
-                        <span class="formula-badge">Classique</span>
+                        <span class="formula-badge">Basses reps</span>
                     </div>
-                    <div class="formula-math">1RM = Poids ÷ (1.013 − 0.0267 × Reps)</div>
+                    <div class="formula-math">1RM = Poids × 36 ÷ (37 − Reps)</div>
                     <div class="formula-details">
                         <div class="detail-item">
                             <span class="detail-label">Plage idéale</span>
-                            <span class="detail-value">2 — 10 reps</span>
+                            <span class="detail-value">1 — 5 reps</span>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">Précision</span>
-                            <span class="detail-value">Bonne</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="formula-card">
-                    <div class="formula-header">
-                        <div class="formula-name-group">
-                            <h3>Lombardi</h3>
-                            <span class="formula-year">1989</span>
-                        </div>
-                        <span class="formula-badge">Versatile</span>
-                    </div>
-                    <div class="formula-math">1RM = Poids × Reps<sup>0.10</sup></div>
-                    <div class="formula-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Plage idéale</span>
-                            <span class="detail-value">1 — 15 reps</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Précision</span>
-                            <span class="detail-value">Bonne</span>
+                            <span class="detail-label">Note</span>
+                            <span class="detail-value">Sous-estime au-delà</span>
                         </div>
                     </div>
                 </div>
@@ -280,12 +280,12 @@
             <div class="info-grid">
                 <div class="info-card">
                     <span class="info-card-number">A</span>
-                    <h4>Choisir la bonne formule</h4>
+                    <h4>Formules par exercice</h4>
                     <ul>
-                        <li><strong>1 — 5 reps :</strong> Brzycki ou Lander</li>
-                        <li><strong>6 — 10 reps :</strong> Epley ou Lombardi</li>
-                        <li><strong>11 — 15 reps :</strong> Mayhew ou Wathen</li>
-                        <li><strong>Si vous notez votre RPE :</strong> calcul RPE, le plus précis</li>
+                        <li><strong>Squat :</strong> Epley + Wathen dominantes</li>
+                        <li><strong>Bench press :</strong> Mayhew dominante (validée r=0.98)</li>
+                        <li><strong>Deadlift :</strong> Epley + Wathen dominantes</li>
+                        <li><strong>Avec RPE :</strong> le RPE prime, c'est la méthode la plus fiable</li>
                     </ul>
                 </div>
 
@@ -302,11 +302,11 @@
 
                 <div class="info-card">
                     <span class="info-card-number">C</span>
-                    <h4>Conseils pratiques</h4>
+                    <h4>Powerlifting — précision</h4>
                     <ul>
-                        <li>Utilisez le RPE dès que possible</li>
-                        <li>Comparez plusieurs formules entre elles</li>
-                        <li>Tenez compte de la fatigue et de la technique</li>
+                        <li>Brzycki et O'Conner sous-estiment les forts au-delà de 5 reps</li>
+                        <li>L'estimation finale est pondérée par exercice, pas une moyenne plate</li>
+                        <li>Pour tester un vrai max, faites des séries de 3 reps maximum</li>
                         <li>Progressez par paliers de 2,5 — 5 kg</li>
                     </ul>
                 </div>
