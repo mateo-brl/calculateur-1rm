@@ -306,8 +306,8 @@ function clearInputs() {
             <div class="empty-state-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
-            <h3>Résultats</h3>
-            <p>Remplissez les champs et cliquez sur "Calculer" pour voir vos résultats</p>
+            <h3>En attente</h3>
+            <p>Remplissez les champs et cliquez sur Calculer pour voir l'estimation.</p>
         </div>
     `;
 }
@@ -441,17 +441,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.formula-card, .info-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(card);
+    });
+
+    document.querySelectorAll('.reveal, [data-stagger]').forEach(el => {
+        observer.observe(el);
     });
 });
 
@@ -517,3 +523,18 @@ window.addEventListener('error', function(e) {
         }
     });
 })();
+
+
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+    }
+});
